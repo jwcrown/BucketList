@@ -1,0 +1,51 @@
+<div class="container">
+<br>
+
+<h3 class="inline">Bucket List</h3>
+<h3 class="inline"><a href="/home" id="navbar">Home</a></h3>
+<h3 class="inline"><a href="/logout" id="navbar"> Logout </a></h3>
+  <div class="jumbotron">
+    <h1 *ngIf="user" id="welcome">Welcome, {{ user.name }}! </h1>
+  </div>
+
+  <form (submit)="addItem()" #form="ngForm">
+    <label for="title">Title</label>
+    <input type="text" name="title" required minlength="5" [(ngModel)]="item.title" #title="ngModel" class="form-control">
+    <div *ngIf="title.invalid && (title.dirty || title.touched)">Required</div><br>
+
+    <label for="desc">Description</label>
+    <input type="text" name="desc" required minlength="10" [(ngModel)]="item.desc" #desc="ngModel" class="form-control">
+    <div *ngIf="desc.invalid && (desc.dirty || desc.touched)">Required</div><br>
+
+    <label for="tag">Tag</label>
+    <select type="text" name="tag" required [(ngModel)]="item.tag" #tag="ngModel" class="form-control">
+      <ng-container *ngFor="let n of users">
+        <option *ngIf="n.name != user.name" value="{{n.name}}">{{ n.name }}</option>
+      </ng-container>
+    </select>
+    <div *ngIf="tag.invalid && (tag.dirty || tag.touched)">Required</div><br>
+
+    <button class="btn btn-success" type="submit" [disabled]="form.invalid">Add to List</button>
+  </form>
+
+  <h3>Before I die I want to...</h3>
+  <div class="container">
+    <table class="table table-bordered table-striped table-hover">
+      <tr *ngFor="let i of items" class="one-note">
+        <td *ngIf="i.finished"><input (click) = "check(i._id)" type="checkbox" name="checkId" [(ngModel)]="myCheck.checkId" #finished="ngModel" checked ></td>
+        <td *ngIf="!i.finished"><input (click) = "check(i._id)" type="checkbox" name="checkId" [(ngModel)]="myCheck.checkId" #finished="ngModel" ></td>
+        <td>{{ i.creator }}</td>
+        <td>{{ i.title }}</td>
+        <td>{{ i.desc }}</td>
+        <td>{{ i.createdAt | date: 'longDate' }}</td>
+      </tr>
+    </table>
+  </div>
+
+
+  <h3>List of other users (Click to view profile):</h3>
+  <div *ngFor="let n of users">
+    <h4><a href="user/{{n._id}}">{{ n.name }}</a></h4>
+  </div>
+
+</div>

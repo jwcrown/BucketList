@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="display jumbotron">
+    <h1>Bucket Lists</h1>
+  </div>
+  <form (submit)="onSubmit()" #form="ngForm">
+    <h3><label for="name">Name: </label></h3> 
+    <input type="text" name="name" required minlength="2" pattern="^[a-zA-Z]+(\s+[a-zA-Z]+)*$" [(ngModel)]="user.name" #name="ngModel" class="form-control">
+    <div *ngIf="name.invalid && (name.dirty || name.touched)">Invaild Name</div><br>
+    <button class="btn-lg btn-success" type="submit" [disabled]="form.invalid">Enter</button>
+  </form>
+  <br>
+  <br>
+  <hr>
+</div>

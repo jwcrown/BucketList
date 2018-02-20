@@ -1,0 +1,23 @@
+<div class="container">
+  <br>
+
+  <h3 class="inline">Bucket List</h3>
+  <h3 class="inline"><a href="/home" id="navbar">Home</a></h3>
+  <h3 class="inline"><a href="/logout" id="navbar"> Logout </a></h3>
+    <div class="jumbotron">
+      <h1 *ngIf="items" id="welcome">{{ items.name }}'s Bucket List</h1>
+    </div>
+  <div class="container">
+    <table class="table table-bordered table-striped table-hover">
+      <tr *ngFor="let i of items._items" class="one-note">
+        <td *ngIf="i.finished"><input type="checkbox" name="finished" checked disabled="disabled"></td>
+        <td *ngIf="!i.finished"><input type="checkbox" name="finished" disabled="disabled"></td>
+        <td>{{ i.creator }}</td>
+        <td>{{ i.title }}</td>
+        <td>{{ i.desc }}</td>
+        <td>{{ i.createdAt | date: 'longDate' }}</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
